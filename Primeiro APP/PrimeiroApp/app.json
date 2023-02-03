@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Projeto",
-    "slug": "Projeto",
+    "name": "PrimeiroApp",
+    "slug": "PrimeiroApp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -9,14 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#27282d"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#27282d"
-      },
-      "package": "com.rodrigobergenthal.Projeto"
+      "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -27,13 +20,14 @@
     "ios": {
       "supportsTablet": true
     },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "cac33d2b-21ea-4553-88ea-fa1837e2becf"
-      }
     }
   }
 }
