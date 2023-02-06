@@ -1,12 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TouchableOpacity, ImageBackgroundComponent, TextInput, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, ImageBackgroundComponent, TextInput, AsyncStorage, Alert,ImageBackground, TextComponent } from 'react-native';
+
 
 export default function App() {
   const [estado, setarEstado] = useState("leitura");
   const [anotacao, setarAnotacao] = useState('')
 
 
+  useEffect(() => {
+    //quando inicializar o app quero que leia a key anotação.
+
+    (async () => {
+      try {
+        const anotacaoLeitura = await AsyncStorage.getItem('anotacao');
+        setarAnotacao(anotacaoLeitura);
+      } catch (error) { }
+    })();
+
+  }, [])
+
+  setData = async () => {
+    try {
+      await AsyncStorage.setItem('anotacao', anotacao);
+    } catch (error) {
+
+    }
+
+    alert('Sua Anotação foi Salva');
+  }
+
+
+  function atualizarTexto() {
+    setarEstado('leitura');
+    setDate();
+  }
 
   if (estado == 'leitura') {
     return (
@@ -22,12 +50,12 @@ export default function App() {
         }
         <TouchableOpacity onPress={() => setarEstado('atualizando')} style={styles.btnAnotacao}>
           {
-          (anotacao == '')?
-          <Text style={styles.btnAnotacaoTexto}>+</Text>
-          :
-          <Text style={{fontSize:12,color:'white',textAlign:'center',marginTop:16}}>Editar</Text>
+            (anotacao == '') ?
+              <Text style={styles.btnAnotacaoTexto}>+</Text>
+              :
+              <Text style={{ fontSize: 12, color: 'white', textAlign: 'center', marginTop: 16 }}>Editar</Text>
           }
-          </TouchableOpacity>
+        </TouchableOpacity>
       </View>
     );
   } else if (estado == 'atualizando') {
@@ -35,12 +63,12 @@ export default function App() {
       <View style={{ flex: 1 }}>
         <StatusBar style='light' />
         <View style={styles.header}><Text style={{ textAlign: 'center', color: 'white', fontSize: 18 }}>Aplicativo Anotacao</Text></View>
-        
-            <View style={{ padding: 20 }}><Text style={styles.anotacao}>{anotacao}</Text></View>
-            
-            
-        
-        <TextInput onChangeText={(text) => setarAnotacao(text)} multiline={true} numberOfLines={5} value={anotacao} style={{ textAlignVertical: 'top', padding: 20 }}></TextInput>
+
+        <View style={{ padding: 20 }}><Text style={styles.anotacao}>{anotacao}</Text></View>
+
+
+
+        <TextInput autoFocus={true} onChangeText={(text) => setarAnotacao(text)} multiline={true} numberOfLines={5} value={anotacao} style={{ textAlignVertical: 'top', padding: 20 }}></TextInput>
 
         <TouchableOpacity onPress={() => setarEstado('leitura')} style={styles.btnSalvar}><Text style={{ textAlign: 'center', color: 'white' }}>Salvar</Text></TouchableOpacity>
 
@@ -50,6 +78,8 @@ export default function App() {
     );
   };
 };
+
+
 
 const styles = StyleSheet.create({
   header: {
@@ -85,6 +115,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     backgroundColor: '#069'
   }
+
 
 
 });
